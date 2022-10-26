@@ -1,11 +1,39 @@
 pipeline {
-    agent { docker { image 'php:8.1.0-alpine' } }
+    agent { 
+        node {
+            label 'docker-agent'
+            }
+      }
+    triggers {
+        pollSCM '*/5 * * * *'
+    }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh -c 'php --version'
+                echo "Building.."
+                sh '''
+                cd myapp
+                pip install -r requirements.txt
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                cd myapp
+                python3 hello.py
+                python3 hello.py --name=Brad
+                '''
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
             }
         }
     }
 }
-
