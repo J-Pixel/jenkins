@@ -1,3 +1,5 @@
+#Python app pipeline skeleton
+
 pipeline {
     agent { 
         node {
