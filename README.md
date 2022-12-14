@@ -1,1 +1,1 @@
-# Jenkins
+# Jenkins blueprints and examples.
